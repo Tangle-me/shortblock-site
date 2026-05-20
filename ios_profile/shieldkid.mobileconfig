@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  ShieldKid iOS DNS Profile
+  Install on child's iPhone/iPad by opening this file in Safari on the device.
+  This routes all DNS through the ShieldKid filter — no app required.
+
+  BEFORE DISTRIBUTING: Replace YOUR_WORKER_SUBDOMAIN with your actual
+  Cloudflare Worker subdomain (e.g. shieldkid-dns.yourname.workers.dev)
+-->
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>DNSSettings</key>
+      <dict>
+        <key>DNSProtocol</key>
+        <string>HTTPS</string>
+        <key>ServerAddresses</key>
+        <array>
+          <string>1.1.1.1</string>
+          <string>1.0.0.1</string>
+        </array>
+        <key>ServerURL</key>
+        <string>https://shieldkid-dns.bechev-ventzi.workers.dev/dns-query</string>
+      </dict>
+      <key>PayloadDescription</key>
+      <string>ShieldKid DNS filter — blocks short-form video platforms</string>
+      <key>PayloadDisplayName</key>
+      <string>ShieldKid Protection</string>
+      <key>PayloadIdentifier</key>
+      <string>com.shieldkid.dns.profile</string>
+      <key>PayloadType</key>
+      <string>com.apple.dnsSettings.managed</string>
+      <key>PayloadUUID</key>
+      <string>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>ProhibitDisablement</key>
+      <false/>
+    </dict>
+  </array>
+  <key>PayloadDescription</key>
+  <string>Installs ShieldKid DNS filtering to protect children from short-form video addiction (TikTok, Snapchat Spotlight, Instagram Reels).</string>
+  <key>PayloadDisplayName</key>
+  <string>ShieldKid Parental Control</string>
+  <key>PayloadIdentifier</key>
+  <string>com.shieldkid.profile</string>
+  <key>PayloadOrganization</key>
+  <string>ShieldKid</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>B2C3D4E5-F6A7-8901-BCDE-F12345678901</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+</dict>
+</plist>
