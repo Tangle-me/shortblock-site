@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShieldKid — Parent Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dash-body">
+
+  <nav>
+    <div class="nav-inner">
+      <span class="logo">🛡️ ShieldKid</span>
+      <a href="index.html" class="btn-nav" style="background:transparent;color:var(--text);border:1px solid var(--border);">← Back</a>
+    </div>
+  </nav>
+
+  <!-- Login form (shown until authenticated) -->
+  <div id="login-view">
+    <div class="auth-box">
+      <div style="font-size:48px;margin-bottom:12px;">🛡️</div>
+      <h2>Parent Login</h2>
+      <p>Sign in to manage your child's protection settings</p>
+      <input type="email" id="email-input" placeholder="Your email address">
+      <input type="password" id="pass-input" placeholder="Password">
+      <button id="login-btn">Sign In</button>
+      <p class="err" id="login-err"></p>
+      <p style="margin-top:16px;font-size:13px;color:var(--muted);">
+        No account? <a href="#" id="signup-link" style="color:var(--accent)">Create one free</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Sign-up form -->
+  <div id="signup-view" style="display:none">
+    <div class="auth-box">
+      <div style="font-size:48px;margin-bottom:12px;">🛡️</div>
+      <h2>Create Account</h2>
+      <p>Free. No credit card. Takes 30 seconds.</p>
+      <input type="email" id="su-email" placeholder="Your email address">
+      <input type="password" id="su-pass" placeholder="Choose a password (min 8 chars)">
+      <button id="signup-btn">Create Account</button>
+      <p class="err" id="signup-err"></p>
+      <p style="margin-top:16px;font-size:13px;color:var(--muted);">
+        Already have an account? <a href="#" id="back-login-link" style="color:var(--accent)">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Dashboard (shown when logged in) -->
+  <div id="dashboard-view" style="display:none">
+    <div class="dash-wrap">
+      <h1>Parent Dashboard</h1>
+      <p class="dash-sub" id="user-email-label">Managing protection for your family</p>
+
+      <!-- Block toggles -->
+      <div class="card">
+        <h2>🚫 Content Blocking</h2>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <h3>TikTok</h3>
+            <p>Blocks the entire TikTok app and website</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="t-tiktok" checked>
+            <span class="sl"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <h3>YouTube Shorts</h3>
+            <p>Android: blocked instantly. iOS: requires DNS profile.</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="t-shorts" checked>
+            <span class="sl"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <h3>Instagram Reels</h3>
+            <p>Blocks Reels video CDN — other Instagram features unaffected</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="t-reels" checked>
+            <span class="sl"></span>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <h3>Snapchat Spotlight</h3>
+            <p>Blocks the Spotlight short-video feed</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="t-snap" checked>
+            <span class="sl"></span>
+          </label>
+        </div>
+
+        <p class="success" id="save-msg" style="margin-top:16px;display:none;">Settings saved ✓</p>
+      </div>
+
+      <!-- Download links -->
+      <div class="card">
+        <h2>📲 Install on Child's Device</h2>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="../ShieldKid.apk" class="btn-download" download
+             style="text-align:center;display:block;">
+            Download Android APK
+          </a>
+          <a href="../ios_profile/shieldkid.mobileconfig" class="btn-download"
+             style="text-align:center;display:block;background:#555;">
+            Download iOS Profile
+          </a>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin-top:14px;">
+          Android: transfer the APK to your child's phone and install it.<br>
+          iOS: open the profile link in Safari on your child's iPhone.
+        </p>
+      </div>
+
+      <!-- Sign out -->
+      <div style="text-align:right;margin-top:8px;">
+        <button id="signout-btn"
+          style="background:none;border:1px solid var(--border);color:var(--muted);
+                 padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;">
+          Sign out
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
