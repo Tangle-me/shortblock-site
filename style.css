@@ -40,23 +40,30 @@ nav {
 /* HERO */
 .hero {
   max-width: 800px; margin: 0 auto;
-  padding: 96px 24px 80px;
+  padding: 80px 24px 64px;
   text-align: center;
 }
+.hero-badge {
+  display: inline-block;
+  background: #E8F5E9; color: #2E7D32;
+  padding: 6px 16px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  margin-bottom: 24px;
+}
 .hero h1 {
-  font-size: clamp(36px, 6vw, 64px);
+  font-size: clamp(30px, 5vw, 56px);
   font-weight: 800; color: var(--dark);
   line-height: 1.15; margin-bottom: 20px;
 }
 .subtitle {
-  font-size: clamp(16px, 2vw, 20px);
-  color: var(--muted); max-width: 600px;
-  margin: 0 auto 40px;
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--muted); max-width: 580px;
+  margin: 0 auto 36px;
 }
-.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .btn-primary {
-  padding: 14px 36px; background: var(--dark); color: #fff;
-  border-radius: 10px; text-decoration: none; font-size: 17px; font-weight: 700;
+  display: inline-block;
+  padding: 16px 40px; background: var(--dark); color: #fff;
+  border-radius: 10px; text-decoration: none; font-size: 18px; font-weight: 700;
   transition: background .2s;
 }
 .btn-primary:hover { background: var(--accent); }
@@ -65,6 +72,104 @@ nav {
   border-radius: 10px; text-decoration: none; font-size: 17px; font-weight: 600;
   border: 1px solid var(--border);
 }
+
+/* DEVICE PICKER */
+.pick-device {
+  padding: 64px 24px;
+  text-align: center;
+  background: var(--light);
+}
+.pick-device h2 {
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 800; color: var(--dark);
+  margin-bottom: 36px;
+}
+.step-label {
+  font-size: 12px; font-weight: 700;
+  color: var(--accent); letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.device-grid {
+  max-width: 800px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.device-card {
+  background: #fff; border: 2px solid var(--border);
+  border-radius: 20px; padding: 36px 24px;
+  cursor: pointer; transition: all .2s;
+  text-align: center;
+}
+.device-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(79,70,229,.12);
+}
+.device-icon { font-size: 48px; margin-bottom: 14px; }
+.device-name { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+.device-sub { font-size: 13px; color: var(--muted); }
+
+/* INSTALL STEPS */
+.install-steps {
+  max-width: 720px; margin: 0 auto;
+  padding: 64px 24px;
+}
+.install-steps h2 {
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800; color: var(--dark);
+  margin-bottom: 40px;
+}
+.steps-list { display: flex; flex-direction: column; gap: 0; }
+.step-item {
+  display: flex; gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step-item:last-child { border-bottom: none; }
+.step-num {
+  min-width: 44px; height: 44px;
+  background: var(--dark); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 18px; flex-shrink: 0;
+}
+.step-body h3 { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+.step-body p { font-size: 14px; color: var(--text); margin-bottom: 12px; line-height: 1.6; }
+.note { font-size: 12px !important; color: var(--muted) !important; }
+
+.btn-download {
+  display: inline-block;
+  padding: 13px 28px; background: var(--dark); color: #fff;
+  border-radius: 10px; text-decoration: none; font-size: 15px; font-weight: 700;
+  transition: background .2s; margin-bottom: 10px;
+}
+.btn-download:hover { background: var(--accent); }
+
+.url-box {
+  background: var(--light); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 16px;
+  font-family: monospace; font-size: 14px; color: var(--dark);
+  margin: 8px 0 12px; display: inline-block;
+}
+.success-box {
+  background: #E8F5E9; color: #2E7D32;
+  border-radius: 10px; padding: 14px 20px;
+  font-size: 14px; font-weight: 600;
+}
+.optional-box {
+  background: #EEF2FF; border-radius: 12px;
+  padding: 16px 20px; margin-top: 32px;
+  font-size: 14px; color: var(--text);
+}
+.optional-box a { color: var(--accent); font-weight: 600; }
+.btn-back {
+  margin-top: 24px;
+  background: none; border: 1px solid var(--border);
+  color: var(--muted); padding: 10px 20px;
+  border-radius: 8px; cursor: pointer; font-size: 14px;
+}
+.btn-back:hover { color: var(--dark); border-color: var(--dark); }
 
 /* FEATURES */
 .features {

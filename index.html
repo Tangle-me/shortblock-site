@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShieldKid — Protect Your Child From Short-Video Addiction</title>
+  <title>ShieldKid — Block TikTok & YouTube Shorts on your child's phone</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,101 +11,221 @@
   <nav>
     <div class="nav-inner">
       <span class="logo">🛡️ ShieldKid</span>
-      <a href="dashboard.html" class="btn-nav">Parent Login</a>
+      <a href="dashboard.html" class="btn-nav">Parent Dashboard</a>
     </div>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
-    <h1>Your child's phone.<br>Your rules.</h1>
+    <div class="hero-badge">Free · No account needed · 2 min setup</div>
+    <h1>Stop TikTok & YouTube Shorts<br>on your child's phone</h1>
     <p class="subtitle">
-      ShieldKid silently blocks TikTok, YouTube Shorts, and Instagram Reels
-      the moment your child opens them — without blocking the rest of the internet.
+      ShieldKid blocks short-form video the moment your child opens it —
+      silently, invisibly, and without blocking the rest of the internet.
     </p>
-    <div class="cta-row">
-      <a href="#download" class="btn-primary">Get Started Free</a>
-      <a href="#how" class="btn-secondary">How it works</a>
+    <a href="#pick-device" class="btn-primary">Protect My Child's Phone →</a>
+  </section>
+
+  <!-- STEP 1: PICK DEVICE — the entire UX starts here -->
+  <section class="pick-device" id="pick-device">
+    <div class="step-label">STEP 1 OF 3</div>
+    <h2>What device does your child use?</h2>
+    <div class="device-grid">
+
+      <button class="device-card" onclick="showSteps('android')">
+        <div class="device-icon">🤖</div>
+        <div class="device-name">Android Phone</div>
+        <div class="device-sub">Samsung, Xiaomi, Oppo, any Android</div>
+      </button>
+
+      <button class="device-card" onclick="showSteps('ios')">
+        <div class="device-icon">📱</div>
+        <div class="device-name">iPhone or iPad</div>
+        <div class="device-sub">Any iPhone or iPad</div>
+      </button>
+
+      <button class="device-card" onclick="showSteps('desktop')">
+        <div class="device-icon">💻</div>
+        <div class="device-name">Laptop or Computer</div>
+        <div class="device-sub">Windows, Mac, Chromebook</div>
+      </button>
+
     </div>
   </section>
 
+  <!-- ANDROID STEPS -->
+  <section class="install-steps" id="steps-android" style="display:none">
+    <div class="step-label">STEPS 2 & 3 OF 3 — ANDROID</div>
+    <h2>Install on Android — takes 2 minutes</h2>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Download ShieldKid to your child's phone</h3>
+          <p>Send this link to your child's phone, or connect the phone to your computer and copy the file across.</p>
+          <a href="ShieldKid.apk" class="btn-download" download>⬇ Download ShieldKid.apk</a>
+          <p class="note">File size: ~4MB · Safe to download · No Google Play needed</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Open the file and tap Install</h3>
+          <p>On the child's phone, open the downloaded file. Android will ask <em>"Allow install from unknown sources"</em> — tap <strong>Settings → Allow</strong>, then go back and tap <strong>Install</strong>.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Set your parent PIN — app hides itself</h3>
+          <p>The app opens and asks you to set a PIN. Choose any 4+ digit number <strong>only you know</strong>. Tap <strong>Activate Protection</strong>. The app disappears from the home screen. Protection is live.</p>
+          <div class="success-box">✓ TikTok blocked · ✓ YouTube Shorts blocked · ✓ App invisible to child</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="optional-box">
+      <strong>Optional:</strong> Create a free parent account to manage settings remotely from your own phone →
+      <a href="dashboard.html">Open Parent Dashboard</a>
+    </div>
+
+    <button class="btn-back" onclick="hideSteps()">← Choose a different device</button>
+  </section>
+
+  <!-- iOS STEPS -->
+  <section class="install-steps" id="steps-ios" style="display:none">
+    <div class="step-label">STEPS 2 & 3 OF 3 — iPHONE / iPAD</div>
+    <h2>Install on iPhone — takes 2 minutes</h2>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Open this page on your child's iPhone in Safari</h3>
+          <p>On the child's iPhone, open <strong>Safari</strong> (not Chrome) and go to:</p>
+          <div class="url-box">tangle-me.github.io/shieldkid-site</div>
+          <p class="note">Must be Safari — Chrome cannot install profiles.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Download and install the protection profile</h3>
+          <a href="ios_profile/shieldkid.mobileconfig" class="btn-download">⬇ Install iOS Protection Profile</a>
+          <p>After tapping the button: tap <strong>Allow</strong> → go to <strong>Settings</strong> → tap <strong>Profile Downloaded</strong> at the top → tap <strong>Install</strong> → enter the phone passcode → tap <strong>Install</strong> again.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Done — TikTok, Reels and Snapchat Spotlight are blocked</h3>
+          <div class="success-box">✓ TikTok blocked · ✓ Instagram Reels blocked · ✓ Snapchat Spotlight blocked</div>
+          <p class="note" style="margin-top:12px;">Note: YouTube Shorts on iPhone requires also going to <strong>Settings → Screen Time → App Limits</strong> and setting a 1 min/day limit on YouTube.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="optional-box">
+      <strong>Optional:</strong> Create a free parent account to manage settings remotely →
+      <a href="dashboard.html">Open Parent Dashboard</a>
+    </div>
+
+    <button class="btn-back" onclick="hideSteps()">← Choose a different device</button>
+  </section>
+
+  <!-- DESKTOP STEPS -->
+  <section class="install-steps" id="steps-desktop" style="display:none">
+    <div class="step-label">STEPS 2 & 3 OF 3 — LAPTOP / COMPUTER</div>
+    <h2>Install on laptop or computer — takes 1 minute</h2>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Add ShieldKid to Chrome</h3>
+          <p>On the child's computer, open Chrome and go to:</p>
+          <a href="https://chrome.google.com/webstore" target="_blank" class="btn-download">Add ShieldKid to Chrome</a>
+          <p class="note">Also works on Edge and Brave.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Set your parent PIN in the extension</h3>
+          <p>Click the ShieldKid icon in the browser toolbar → enter a PIN only you know → save it. Protection is immediately active.</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Done</h3>
+          <div class="success-box">✓ TikTok blocked · ✓ YouTube Shorts blocked · ✓ Instagram Reels blocked</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-back" onclick="hideSteps()">← Choose a different device</button>
+  </section>
+
+  <!-- WHY IT WORKS -->
   <section class="features" id="how">
-    <h2>Surgical. Silent. Instant.</h2>
+    <h2>Why ShieldKid is different</h2>
     <div class="feature-grid">
       <div class="feature-card">
-        <div class="icon">⚡</div>
-        <h3>Instant kill switch</h3>
-        <p>The moment your child taps on a Short or opens TikTok, the connection dies. No loading. Nothing.</p>
-      </div>
-      <div class="feature-card">
         <div class="icon">🎯</div>
-        <h3>Short-form only</h3>
-        <p>Regular YouTube videos still work. Educational content, music, movies — all unaffected. Only the addictive scroll is blocked.</p>
+        <h3>Shorts only — not all YouTube</h3>
+        <p>Regular YouTube videos, documentaries, music — all still work. Only the addictive 60-second scroll is blocked.</p>
       </div>
       <div class="feature-card">
         <div class="icon">👻</div>
-        <h3>Invisible to kids</h3>
-        <p>The app hides itself after setup. No icon, no name, can't be found or deleted without your PIN.</p>
+        <h3>Invisible to your child</h3>
+        <p>No app icon. No name. Cannot be found or deleted without your PIN. Your child doesn't know it's there.</p>
       </div>
       <div class="feature-card">
-        <div class="icon">📱</div>
-        <h3>No app store needed</h3>
-        <p>Downloads directly from this site. Google and Apple can't pull it. Works on Android and iPhone.</p>
+        <div class="icon">⚡</div>
+        <h3>Instant — no loading</h3>
+        <p>The moment your child taps TikTok or Shorts, nothing happens. No error page. Just silence.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="download" id="download">
-    <h2>Download for your child's device</h2>
-    <p class="download-sub">Install takes under 2 minutes. No account required to start.</p>
-    <div class="download-grid">
-
-      <div class="download-card">
-        <div class="platform-icon">🤖</div>
-        <h3>Android</h3>
-        <p>Works on all Android phones and tablets. No root needed.</p>
-        <a href="ShieldKid.apk" class="btn-download" download>Download APK</a>
-        <p class="install-note">Then open the file and tap Install</p>
-      </div>
-
-      <div class="download-card">
-        <div class="platform-icon"></div>
-        <h3>iPhone / iPad</h3>
-        <p>DNS profile — no app needed. Blocks TikTok, Reels, Snapchat system-wide.</p>
-        <a href="ios_profile/shieldkid.mobileconfig" class="btn-download">Install iOS Profile</a>
-        <p class="install-note">Open in Safari → tap Allow → Go to Settings to confirm</p>
-      </div>
-
-      <div class="download-card">
-        <div class="platform-icon">💻</div>
-        <h3>Chrome / Edge</h3>
-        <p>Browser extension for laptops and desktops.</p>
-        <a href="#" class="btn-download" id="chrome-link">Add to Chrome</a>
-        <p class="install-note">Works on any Chromium browser</p>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="how-steps">
-    <h2>Setup in 3 steps</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <p><strong>Download</strong> the app on your child's Android phone using the link above</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <p><strong>Set your PIN</strong> — only you will know this. Your child cannot uninstall the app without it.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <p><strong>Activate</strong> — the app hides itself. Protection is live. Done.</p>
+      <div class="feature-card">
+        <div class="icon">🔓</div>
+        <h3>No Google Play or App Store</h3>
+        <p>Downloads directly from this site. Cannot be removed by Google or Apple. Always available.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 ShieldKid · Built for parents, by parents · <a href="dashboard.html">Parent Dashboard</a></p>
+    <p>© 2025 ShieldKid · Free forever for families ·
+      <a href="dashboard.html">Parent Dashboard</a>
+    </p>
   </footer>
+
+  <script>
+    function showSteps(platform) {
+      // Hide device picker, show correct steps
+      document.getElementById('pick-device').style.display = 'none';
+      document.getElementById('steps-android').style.display = 'none';
+      document.getElementById('steps-ios').style.display = 'none';
+      document.getElementById('steps-desktop').style.display = 'none';
+      document.getElementById('steps-' + platform).style.display = 'block';
+      // Smooth scroll to steps
+      document.getElementById('steps-' + platform).scrollIntoView({ behavior: 'smooth' });
+    }
+    function hideSteps() {
+      document.getElementById('steps-android').style.display = 'none';
+      document.getElementById('steps-ios').style.display = 'none';
+      document.getElementById('steps-desktop').style.display = 'none';
+      document.getElementById('pick-device').style.display = 'block';
+      document.getElementById('pick-device').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 
 </body>
 </html>
