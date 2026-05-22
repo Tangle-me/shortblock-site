@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  ShieldKid iOS DNS Profile
+  ShortBlock iOS DNS Profile
   Install on child's iPhone/iPad by opening this file in Safari on the device.
-  This routes all DNS through the ShieldKid filter — no app required.
+  This routes all DNS through the ShortBlock filter — no app required.
 
   BEFORE DISTRIBUTING: Replace YOUR_WORKER_SUBDOMAIN with your actual
   Cloudflare Worker subdomain (e.g. shieldkid-dns.yourname.workers.dev)
@@ -26,11 +26,11 @@
         <string>https://shieldkid-dns.bechev-ventzi.workers.dev/dns-query</string>
       </dict>
       <key>PayloadDescription</key>
-      <string>ShieldKid DNS filter — blocks short-form video platforms</string>
+      <string>ShortBlock DNS filter — blocks short-form video platforms</string>
       <key>PayloadDisplayName</key>
-      <string>ShieldKid Protection</string>
+      <string>ShortBlock Protection</string>
       <key>PayloadIdentifier</key>
-      <string>com.shieldkid.dns.profile</string>
+      <string>com.shortblock.dns.profile</string>
       <key>PayloadType</key>
       <string>com.apple.dnsSettings.managed</string>
       <key>PayloadUUID</key>
@@ -42,13 +42,13 @@
     </dict>
   </array>
   <key>PayloadDescription</key>
-  <string>Installs ShieldKid DNS filtering to protect children from short-form video addiction (TikTok, Snapchat Spotlight, Instagram Reels).</string>
+  <string>Installs ShortBlock DNS filtering to protect children from short-form video addiction (TikTok, Snapchat Spotlight, Instagram Reels).</string>
   <key>PayloadDisplayName</key>
-  <string>ShieldKid Parental Control</string>
+  <string>ShortBlock Parental Control</string>
   <key>PayloadIdentifier</key>
-  <string>com.shieldkid.profile</string>
+  <string>com.shortblock.profile</string>
   <key>PayloadOrganization</key>
-  <string>ShieldKid</string>
+  <string>ShortBlock</string>
   <key>PayloadRemovalDisallowed</key>
   <false/>
   <key>PayloadType</key>
