@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShortBlock — Privacy Policy</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .privacy-wrap { max-width: 720px; margin: 60px auto; padding: 0 24px 80px; }
+    .privacy-wrap h1 { font-size: 28px; margin-bottom: 8px; }
+    .privacy-wrap .updated { color: #888; font-size: 14px; margin-bottom: 40px; }
+    .privacy-wrap h2 { font-size: 18px; margin: 32px 0 10px; }
+    .privacy-wrap p, .privacy-wrap li { font-size: 15px; line-height: 1.7; color: #333; }
+    .privacy-wrap ul { padding-left: 20px; margin: 8px 0; }
+    .privacy-wrap a { color: #2563eb; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <span class="logo">🛡️ ShortBlock</span>
+      <a href="index.html" class="btn-nav" style="background:transparent;color:#111;border:1px solid #ddd;">← Home</a>
+    </div>
+  </nav>
+
+  <div class="privacy-wrap">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: May 2026</p>
+
+    <h2>Summary</h2>
+    <p>ShortBlock does not collect, transmit, or store any personal data on any server. Everything the extension stores stays on your device. We have no servers that receive your data.</p>
+
+    <h2>What we store — and where</h2>
+    <p>The ShortBlock Chrome extension stores two things locally in your browser using <code>chrome.storage.local</code>:</p>
+    <ul>
+      <li><strong>A hashed PIN.</strong> When you set a parent PIN, it is hashed using a one-way function and stored in your browser's local storage. The original PIN is never stored. This data never leaves your device.</li>
+      <li><strong>A protection state flag</strong> (on or off). This is a single boolean value stored locally.</li>
+    </ul>
+    <p>Neither value is ever transmitted to ShortBlock or any third party.</p>
+
+    <h2>Why the extension accesses certain websites</h2>
+    <p>The extension uses Chrome's <code>declarativeNetRequest</code> API and a content script to block short-form video. Access to the following domains is required only to apply blocking rules — no data from those sites is ever read or transmitted:</p>
+    <ul>
+      <li><strong>tiktok.com, tiktokv.com, tiktokcdn.com, musical.ly</strong> — to block TikTok and its media/API domains</li>
+      <li><strong>youtube.com</strong> — to detect and redirect navigation to youtube.com/shorts</li>
+      <li><strong>instagram.com, cdninstagram.com</strong> — to block Instagram Reels media</li>
+      <li><strong>snapchat.com</strong> — to block Snapchat Spotlight pages</li>
+    </ul>
+
+    <h2>No tracking, no analytics</h2>
+    <p>ShortBlock contains no analytics, no telemetry, no crash reporting, and no advertising. We do not know who installs the extension or how it is used.</p>
+
+    <h2>No account required</h2>
+    <p>The Chrome extension works entirely without an account. The optional Parent Dashboard on this website uses Supabase for authentication. If you create an account, your email address and content-blocking preferences are stored in our Supabase database. You can request deletion at any time by emailing us.</p>
+
+    <h2>Children's privacy</h2>
+    <p>ShortBlock is a tool for parents to protect children. We do not collect data from children. The extension does not interact with any child's data — it only blocks certain network requests on the device where it is installed.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If we update this policy, we will change the "Last updated" date above. Continued use of ShortBlock after changes constitutes acceptance of the updated policy.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Email us at <a href="mailto:bechev.ventzi@gmail.com">bechev.ventzi@gmail.com</a></p>
+  </div>
+</body>
+</html>
