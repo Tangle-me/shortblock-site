@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iOS Install Guide — System Block</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #0a0a0a; --white: #f5f5f0; --red: #e63022; --grey: #1a1a1a; --grey-light: #888; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; }
+
+  header {
+    padding: 32px 40px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; }
+  .logo span { color: var(--red); }
+  header a { color: var(--grey-light); text-decoration: none; font-size: 14px; }
+  header a:hover { color: var(--white); }
+
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-block;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: var(--grey-light);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 10vw, 100px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  h1 span { color: var(--red); }
+
+  .lead {
+    font-size: 18px;
+    color: #bbb;
+    line-height: 1.6;
+    max-width: 580px;
+    margin-bottom: 60px;
+  }
+
+  .content { max-width: 800px; margin: 0 auto; padding: 0 40px 100px; }
+
+  .part {
+    margin-bottom: 64px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid #222;
+  }
+
+  .part:last-child { border-bottom: none; }
+
+  .part-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .part h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+
+  .part p { font-size: 16px; color: #bbb; line-height: 1.7; margin-bottom: 16px; }
+
+  .steps { margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid #1a1a1a;
+    align-items: start;
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    color: var(--red);
+    line-height: 1;
+  }
+
+  .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 15px; color: var(--grey-light); line-height: 1.6; margin: 0; }
+
+  .note {
+    background: #1a1a1a;
+    border-left: 3px solid var(--red);
+    padding: 20px 24px;
+    margin-top: 32px;
+    font-size: 15px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+
+  .note strong { color: var(--white); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 16px 32px;
+    margin-top: 24px;
+    transition: background 0.2s;
+  }
+
+  .btn:hover { background: #b82419; }
+
+  footer {
+    border-top: 1px solid #222;
+    padding: 40px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--grey-light);
+  }
+
+  footer a { color: var(--grey-light); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+
+  @media (max-width: 600px) {
+    header, .hero, .content { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SYSTEM<span>BLOCK</span></div>
+  <a href="systemblock.html">← Back</a>
+</header>
+
+<div class="hero">
+  <div class="badge">iOS Install Guide</div>
+  <h1>iPHONE &<br><span>iPAD.</span></h1>
+  <p class="lead">
+    iOS doesn't allow third-party apps to block other apps. Instead, System Block uses two built-in iOS features together to achieve full protection.
+  </p>
+</div>
+
+<div class="content">
+
+  <!-- PART 1: DNS PROFILE -->
+  <div class="part">
+    <div class="part-label">Part 1 of 2</div>
+    <h2>DNS PROFILE</h2>
+    <p>This blocks TikTok and browser-based short-form video at the network level. Install it once and it works silently in the background.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Download the profile</h3>
+          <p>Tap the button below on the child's iPhone or iPad. Safari will ask to allow the download — tap Allow.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Open Settings</h3>
+          <p>Go to Settings. You will see a new banner at the top: "Profile Downloaded". Tap it.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Install the profile</h3>
+          <p>Tap Install in the top right. Enter the device passcode if prompted. Tap Install again to confirm.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Done</h3>
+          <p>TikTok and browser-based short-form video is now blocked at network level. The child cannot remove this profile without the device passcode.</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="shortblock.mobileconfig" class="btn">↓ Download DNS Profile</a>
+
+    <div class="note">
+      <strong>Note:</strong> This profile blocks TikTok domains entirely and prevents browser access to tiktok.com. It does not block YouTube Shorts inside the YouTube app — that requires Part 2.
+    </div>
+  </div>
+
+  <!-- PART 2: SCREEN TIME -->
+  <div class="part">
+    <div class="part-label">Part 2 of 2</div>
+    <h2>APPLE SCREEN TIME</h2>
+    <p>Apple's built-in Screen Time can block YouTube Shorts inside the YouTube app and prevent TikTok from being installed. Set it up on the child's device using your own Apple ID.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Open Settings → Screen Time</h3>
+          <p>On the child's device, go to Settings → Screen Time. Tap "Turn On Screen Time" if not already enabled.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Set a Screen Time passcode</h3>
+          <p>Tap "Use Screen Time Passcode" and set a PIN different from the device passcode. This prevents the child from changing Screen Time settings.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Block TikTok app</h3>
+          <p>Go to App Limits → Add Limit → Social Networking → select TikTok → set limit to 1 minute per day. Or use Always Allowed to whitelist only specific apps.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Block YouTube Shorts</h3>
+          <p>Go to Content & Privacy Restrictions → Content Restrictions → Web Content → Limit Adult Websites → add "youtube.com/shorts" to the Never Allow list.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div>
+          <h3>Prevent app installs</h3>
+          <p>Go to Content & Privacy Restrictions → iTunes & App Store Purchases → Installing Apps → Don't Allow. Child cannot install TikTok or any other app.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Combined result:</strong> DNS profile blocks TikTok at network level + Screen Time blocks the YouTube Shorts feed + App install restriction prevents new social apps. Together this gives near-complete protection on iOS.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>System Block · Built by a parent · Free forever<br>
+  <a href="systemblock.html">Home</a> · <a href="https://tangle-me.github.io/shortblock-site/privacy.html">Privacy Policy</a> · <a href="https://tangle-me.com">tangle-me.com</a></p>
+</footer>
+
+</body>
+</html>
