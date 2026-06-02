@@ -7,351 +7,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --black: #0a0a0a;
-    --white: #f5f5f0;
-    --red: #e63022;
-    --red-dark: #b82419;
-    --grey: #1a1a1a;
-    --grey-mid: #2a2a2a;
-    --grey-light: #888;
+    --black: #0a0a0a; --white: #f5f5f0; --red: #e63022;
+    --red-dark: #b82419; --grey: #1a1a1a; --grey-mid: #2a2a2a; --grey-light: #888;
   }
-
   html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
 
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 400;
-    overflow-x: hidden;
-  }
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 60px 40px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(230,48,34,0.15) 0%, transparent 70%); pointer-events: none; }
+  .hero::after { content: 'BLOCK'; position: absolute; bottom: -60px; right: -20px; font-family: 'Bebas Neue', sans-serif; font-size: clamp(160px, 25vw, 320px); color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1; letter-spacing: -5px; }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 40px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(230,48,34,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: 'BLOCK';
-    position: absolute;
-    bottom: -60px; right: -20px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(160px, 25vw, 320px);
-    color: rgba(255,255,255,0.03);
-    pointer-events: none;
-    line-height: 1;
-    letter-spacing: -5px;
-  }
-
-  .badge {
-    display: inline-block;
-    background: var(--red);
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    margin-bottom: 32px;
-    width: fit-content;
-  }
-
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 12vw, 160px);
-    line-height: 0.9;
-    letter-spacing: -2px;
-    margin-bottom: 32px;
-  }
-
+  .badge { display: inline-block; background: var(--red); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; margin-bottom: 32px; width: fit-content; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 12vw, 160px); line-height: 0.9; letter-spacing: -2px; margin-bottom: 32px; }
   .hero h1 span { color: var(--red); }
-
-  .hero p.lead {
-    font-size: clamp(18px, 2.5vw, 24px);
-    font-weight: 300;
-    max-width: 560px;
-    line-height: 1.6;
-    color: #ccc;
-    margin-bottom: 48px;
-  }
-
+  .hero p.lead { font-size: clamp(18px, 2.5vw, 24px); font-weight: 300; max-width: 560px; line-height: 1.6; color: #ccc; margin-bottom: 48px; }
   .hero p.lead strong { color: var(--white); font-weight: 700; }
-
-  .cta-group {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--red);
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 16px;
-    padding: 18px 36px;
-    transition: background 0.2s, transform 0.2s;
-    letter-spacing: 0.5px;
-  }
-
+  .cta-group { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: var(--white); text-decoration: none; font-weight: 700; font-size: 16px; padding: 18px 36px; transition: background 0.2s, transform 0.2s; letter-spacing: 0.5px; }
   .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; color: var(--grey-light); text-decoration: none; font-size: 15px; border-bottom: 1px solid var(--grey-mid); padding-bottom: 2px; transition: color 0.2s; }
+  .btn-secondary:hover { color: var(--white); }
 
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--grey-light);
-    text-decoration: none;
-    font-size: 15px;
-    border-bottom: 1px solid var(--grey-mid);
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .btn-secondary:hover { color: var(--white); border-color: var(--white); }
-
-  /* STAT BAR */
-  .stat-bar {
-    background: var(--grey);
-    padding: 32px 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 32px;
-    border-top: 1px solid #222;
-    border-bottom: 1px solid #222;
-  }
-
+  .stat-bar { background: var(--grey); padding: 32px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; border-top: 1px solid #222; border-bottom: 1px solid #222; }
   .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 52px;
-    color: var(--red);
-    line-height: 1;
-  }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--red); line-height: 1; }
   .stat-label { font-size: 13px; color: var(--grey-light); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
 
-  /* PROBLEM */
   .section { padding: 100px 40px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 20px; }
+  .section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 96px); line-height: 0.95; letter-spacing: -1px; margin-bottom: 32px; }
+  .section p { font-size: 18px; line-height: 1.7; color: #bbb; max-width: 640px; }
 
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 20px;
-  }
-
-  .section h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 7vw, 96px);
-    line-height: 0.95;
-    letter-spacing: -1px;
-    margin-bottom: 32px;
-  }
-
-  .section p {
-    font-size: 18px;
-    line-height: 1.7;
-    color: #bbb;
-    max-width: 640px;
-  }
-
-  /* FEATURES GRID */
-  .features {
-    background: var(--grey);
-    padding: 80px 40px;
-  }
-
+  .features { background: var(--grey); padding: 80px 40px; }
   .features-inner { max-width: 1100px; margin: 0 auto; }
-
-  .features h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 7vw, 80px);
-    margin-bottom: 56px;
-    letter-spacing: -1px;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2px;
-  }
-
-  .feature-card {
-    background: var(--black);
-    padding: 36px 32px;
-    transition: background 0.2s;
-  }
-
+  .features h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 80px); margin-bottom: 56px; letter-spacing: -1px; }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
+  .feature-card { background: var(--black); padding: 36px 32px; transition: background 0.2s; }
   .feature-card:hover { background: #111; }
-
-  .feature-icon {
-    font-size: 32px;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .feature-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
+  .feature-icon { font-size: 32px; margin-bottom: 20px; display: block; }
+  .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
   .feature-card p { font-size: 15px; color: var(--grey-light); line-height: 1.6; }
 
-  /* PLATFORM */
   .platform-section { padding: 100px 40px; }
   .platform-inner { max-width: 1100px; margin: 0 auto; }
-
-  .platform-inner h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 7vw, 80px);
-    letter-spacing: -1px;
-    margin-bottom: 56px;
-  }
-
-  .platform-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-  }
-
-  .platform-card {
-    border: 1px solid #222;
-    padding: 40px 32px;
-    position: relative;
-    transition: border-color 0.2s;
-  }
-
+  .platform-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 80px); letter-spacing: -1px; margin-bottom: 56px; }
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .platform-card { border: 1px solid #222; padding: 40px 32px; position: relative; transition: border-color 0.2s; }
   .platform-card:hover { border-color: var(--red); }
-
   .platform-card.primary { border-color: var(--red); }
-
-  .platform-tag {
-    position: absolute;
-    top: -1px; right: 24px;
-    background: var(--red);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-  }
-
-  .platform-os {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    letter-spacing: -1px;
-    margin-bottom: 8px;
-  }
-
+  .platform-tag { position: absolute; top: -1px; right: 24px; background: var(--red); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; }
+  .platform-os { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: -1px; margin-bottom: 8px; }
   .platform-card p { font-size: 15px; color: var(--grey-light); line-height: 1.6; margin-bottom: 24px; }
-
-  .platform-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--red);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: gap 0.2s;
-  }
-
+  .platform-link { display: inline-flex; align-items: center; gap: 8px; color: var(--red); text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; transition: gap 0.2s; }
   .platform-link:hover { gap: 14px; }
 
-  /* INSTALL STEPS */
-  .install-section {
-    background: var(--grey);
-    padding: 100px 40px;
-  }
-
+  .install-section { background: var(--grey); padding: 100px 40px; }
   .install-inner { max-width: 800px; margin: 0 auto; }
-
-  .install-inner h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 7vw, 80px);
-    letter-spacing: -1px;
-    margin-bottom: 56px;
-  }
-
-  .steps { display: flex; flex-direction: column; gap: 0; }
-
-  .step {
-    display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 24px;
-    padding: 32px 0;
-    border-bottom: 1px solid #222;
-    align-items: start;
-  }
-
+  .install-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 7vw, 80px); letter-spacing: -1px; margin-bottom: 16px; }
+  .install-subtitle { font-size: 16px; color: var(--grey-light); margin-bottom: 56px; line-height: 1.6; }
+  .steps { display: flex; flex-direction: column; }
+  .step { display: grid; grid-template-columns: 64px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px solid #222; align-items: start; }
   .step:last-child { border-bottom: none; }
-
-  .step-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
-    color: var(--red);
-    line-height: 1;
-  }
-
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--red); line-height: 1; }
   .step h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
   .step p { font-size: 15px; color: var(--grey-light); line-height: 1.6; }
 
-  /* FOOTER */
-  footer {
-    border-top: 1px solid #222;
-    padding: 48px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: gap;
-    gap: 24px;
-  }
+  .warning-box { background: #1a1a1a; border: 1px solid #e63022; padding: 20px 24px; margin-top: 12px; border-radius: 2px; }
+  .warning-box p { font-size: 14px; color: #ccc; line-height: 1.6; margin: 0; }
+  .warning-box strong { color: var(--white); }
 
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 2px;
-  }
-
+  footer { border-top: 1px solid #222; padding: 48px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
   .footer-logo span { color: var(--red); }
-
   footer p { font-size: 13px; color: var(--grey-light); }
-
   footer a { color: var(--grey-light); text-decoration: none; }
   footer a:hover { color: var(--white); }
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .hero .badge { animation: fadeUp 0.6s ease both; }
   .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
   .hero p.lead { animation: fadeUp 0.6s 0.2s ease both; }
@@ -367,157 +100,125 @@
 </head>
 <body>
 
-<!-- HERO -->
 <section class="hero">
   <div class="badge">Free · No Ads · No Data Collected</div>
   <h1>STOP<br>THE <span>SCROLL.</span></h1>
-  <p class="lead">
-    TikTok and YouTube Shorts are <strong>engineered to addict your child.</strong>
-    System Block removes them entirely — in 60 seconds.
-  </p>
+  <p class="lead">TikTok and YouTube Shorts are <strong>engineered to addict your child.</strong> System Block removes them entirely — in 60 seconds.</p>
   <div class="cta-group">
-    <a href="#download" class="btn-primary">
-      ↓ Download Free
-    </a>
+    <a href="#download" class="btn-primary">↓ Download Free</a>
     <a href="#how" class="btn-secondary">See how it works →</a>
   </div>
 </section>
 
-<!-- STAT BAR -->
 <div class="stat-bar">
-  <div class="stat">
-    <div class="stat-num">3+</div>
-    <div class="stat-label">Hours daily — avg child on short video</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">60s</div>
-    <div class="stat-label">To install and activate</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">0</div>
-    <div class="stat-label">Ways for child to bypass it</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">$0</div>
-    <div class="stat-label">Cost. Forever.</div>
-  </div>
+  <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Hours daily — avg child on short video</div></div>
+  <div class="stat"><div class="stat-num">60s</div><div class="stat-label">To install and activate</div></div>
+  <div class="stat"><div class="stat-num">0</div><div class="stat-label">Ways for child to bypass it</div></div>
+  <div class="stat"><div class="stat-num">$0</div><div class="stat-label">Cost. Forever.</div></div>
 </div>
 
-<!-- PROBLEM -->
 <div class="section">
   <div class="section-label">The Problem</div>
   <h2>THEY CAN'T<br>STOP.</h2>
-  <p>
-    Short-form video platforms use infinite scroll, autoplay, and AI-driven recommendation to keep children watching for hours. It's not a willpower problem — it's by design. No parental control tool surgically removes Shorts while keeping regular YouTube working. Until now.
-  </p>
+  <p>Short-form video platforms use infinite scroll, autoplay, and AI-driven recommendation to keep children watching for hours. It's not a willpower problem — it's by design. No parental control tool surgically removes Shorts while keeping regular YouTube working. Until now.</p>
 </div>
 
-<!-- FEATURES -->
 <div class="features">
   <div class="features-inner">
     <h2>WHAT IT<br>BLOCKS.</h2>
     <div class="features-grid">
-      <div class="feature-card">
-        <span class="feature-icon">🚫</span>
-        <h3>TikTok — Completely</h3>
-        <p>The app opens and immediately closes. Every time. No video plays, no feed loads.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">📵</span>
-        <h3>YouTube Shorts — In App</h3>
-        <p>Regular YouTube works perfectly. The moment Shorts open, the child is returned to home screen.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🌐</span>
-        <h3>YouTube Shorts — In Browser</h3>
-        <p>Can't bypass by opening Chrome. youtube.com/shorts is blocked in the browser too.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🔒</span>
-        <h3>PIN Protected</h3>
-        <p>Only parents access the settings. Child cannot disable, uninstall, or bypass the protection.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">✅</span>
-        <h3>Regular YouTube Works</h3>
-        <p>Long-form videos, educational content, music — all fully accessible. Just the junk is gone.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">🔕</span>
-        <h3>No Data. No Ads. No Account.</h3>
-        <p>Works entirely on-device. Nothing is collected, transmitted, or sold. Ever.</p>
-      </div>
+      <div class="feature-card"><span class="feature-icon">🚫</span><h3>TikTok — Completely</h3><p>The app opens and immediately closes. Every time. No video plays, no feed loads.</p></div>
+      <div class="feature-card"><span class="feature-icon">📵</span><h3>YouTube Shorts — In App</h3><p>Regular YouTube works perfectly. The moment Shorts open, the child is returned to home screen.</p></div>
+      <div class="feature-card"><span class="feature-icon">🌐</span><h3>YouTube Shorts — In Browser</h3><p>Can't bypass by opening Chrome. youtube.com/shorts is blocked in the browser too.</p></div>
+      <div class="feature-card"><span class="feature-icon">🔒</span><h3>PIN Protected</h3><p>Only parents access the settings. Child cannot disable, uninstall, or bypass the protection.</p></div>
+      <div class="feature-card"><span class="feature-icon">✅</span><h3>Regular YouTube Works</h3><p>Long-form videos, educational content, music — all fully accessible. Just the junk is gone.</p></div>
+      <div class="feature-card"><span class="feature-icon">🔕</span><h3>No Data. No Ads. No Account.</h3><p>Works entirely on-device. Nothing is collected, transmitted, or sold. Ever.</p></div>
     </div>
   </div>
 </div>
 
-<!-- PLATFORMS -->
 <div class="platform-section" id="download">
   <div class="platform-inner">
     <h2>GET IT<br>NOW.</h2>
     <div class="platform-grid">
-
       <div class="platform-card primary">
         <div class="platform-tag">Recommended</div>
         <div class="platform-os">Android</div>
         <p>Full blocking — TikTok, YouTube Shorts in-app and in browser. PIN protected. Child cannot remove it.</p>
         <a href="app-debug.apk" class="platform-link">Download APK →</a>
       </div>
-
       <div class="platform-card">
         <div class="platform-os">iOS</div>
         <p>Install our DNS profile to block TikTok and browser-based Shorts. Use Apple Screen Time for YouTube app control.</p>
         <a href="ios-install.html" class="platform-link">Install Guide →</a>
       </div>
-
       <div class="platform-card">
         <div class="platform-os">Chrome</div>
         <p>Browser extension for desktop computers. Blocks YouTube Shorts and TikTok in Chrome on Mac, Windows, and Linux.</p>
         <a href="https://chrome.google.com/webstore/detail/pddknndoenpjaidccpghdcbolmagoenb" class="platform-link" target="_blank">Get Extension →</a>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <div class="install-section" id="how">
   <div class="install-inner">
-    <h2>SETUP IN<br>4 STEPS.</h2>
+    <h2>SETUP IN<br>5 STEPS.</h2>
+    <p class="install-subtitle">Do this on your <strong style="color:var(--white)">child's phone</strong>. Takes about 2 minutes. Android 10 and above.</p>
     <div class="steps">
+
       <div class="step">
         <div class="step-num">01</div>
         <div>
           <h3>Download the APK</h3>
-          <p>Tap the Download button above on your child's Android phone. Allow installation from unknown sources when prompted — this is normal for apps outside the Play Store.</p>
+          <p>Tap Download Free above on the child's Android phone. When prompted, tap <strong style="color:var(--white)">Settings</strong> and enable <strong style="color:var(--white)">"Allow from this source"</strong> — this is required for apps outside the Play Store.</p>
         </div>
       </div>
+
       <div class="step">
         <div class="step-num">02</div>
         <div>
           <h3>Set Your PIN</h3>
-          <p>Open System Block and create a PIN only you know. Set a security question as backup. This is the only way to change settings.</p>
+          <p>Open System Block and create a PIN only you know. Set a security question as backup. This is the only way to change settings later.</p>
         </div>
       </div>
+
       <div class="step">
         <div class="step-num">03</div>
         <div>
-          <h3>Grant Permissions</h3>
-          <p>Accept the Accessibility Service and Device Admin permissions. These are what allow System Block to detect and block short-form video — and prevent the child from uninstalling it.</p>
+          <h3>Allow Restricted Settings</h3>
+          <p>Android 13 and above blocks Accessibility access for sideloaded apps by default. You must unlock it first:</p>
+          <div class="warning-box">
+            <p>
+              Go to <strong>Settings → Apps → System Block</strong><br>
+              Tap the <strong>three-dot menu</strong> (top right corner)<br>
+              Tap <strong>"Allow restricted settings"</strong><br>
+              Confirm with your fingerprint or PIN
+            </p>
+          </div>
         </div>
       </div>
+
       <div class="step">
         <div class="step-num">04</div>
         <div>
-          <h3>Done. Walk Away.</h3>
-          <p>Protection is active immediately. Test it — open TikTok. It closes. Open YouTube Shorts. It closes. Your child's phone is protected.</p>
+          <h3>Enable Accessibility Service</h3>
+          <p>Go to <strong style="color:var(--white)">Settings → Accessibility → Installed apps → System Block</strong> → toggle ON → tap Allow. This is what detects and blocks short-form video.</p>
         </div>
       </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div>
+          <h3>Done. Test It.</h3>
+          <p>Open TikTok — it closes immediately. Open YouTube and tap Shorts — it closes immediately. Your child's phone is protected. Regular YouTube, Chrome browsing, and all other apps work normally.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">SYSTEM<span>BLOCK</span></div>
   <p>Built by a parent. Free forever.<br>
