@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShortBlock — Block TikTok & YouTube Shorts</title>
+<style>
+  :root {
+    --ink:     #0f1117;
+    --sub:     #4a5060;
+    --faint:   #8a8f9e;
+    --bg:      #f7f8fc;
+    --white:   #ffffff;
+    --blue:    #1a73e8;
+    --blue-dk: #1558b0;
+    --green:   #1db954;
+    --border:  #e2e5ef;
+    --warn:    #fff4e0;
+    --warn-bdr:#f0b429;
+    --step-bg: #f0f4ff;
+
+    --radius:  10px;
+    --mono: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── NAV ────────────────────────────────────────────── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-weight: 700; font-size: 18px; color: var(--ink); letter-spacing: -0.3px; }
+  .logo span { color: var(--blue); }
+
+  /* ── HERO ───────────────────────────────────────────── */
+  .hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 24px 64px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #e8f0fe;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    color: var(--ink);
+    max-width: 680px;
+    margin: 0 auto 20px;
+  }
+  .hero h1 em { font-style: normal; color: var(--blue); }
+  .hero p {
+    font-size: 18px;
+    color: var(--sub);
+    max-width: 480px;
+    margin: 0 auto 40px;
+  }
+
+  /* Platform picker */
+  .platform-picker {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .platform-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .platform-btn.android {
+    background: var(--blue);
+    color: #fff;
+  }
+  .platform-btn.android:hover { background: var(--blue-dk); text-decoration: none; }
+  .platform-btn.ios {
+    background: var(--white);
+    color: var(--ink);
+    border-color: var(--border);
+  }
+  .platform-btn.ios:hover { border-color: var(--blue); color: var(--blue); text-decoration: none; }
+  .platform-note {
+    font-size: 13px;
+    color: var(--faint);
+  }
+
+  /* ── SECTION WRAPPER ────────────────────────────────── */
+  .section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .section > p {
+    color: var(--sub);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  /* ── PLATFORM TABS ──────────────────────────────────── */
+  .tab-bar {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .tab {
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--faint);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--ink); }
+  .tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── STEPS ──────────────────────────────────────────── */
+  .steps { display: flex; flex-direction: column; gap: 20px; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    align-items: start;
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--step-bg);
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body {}
+  .step-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .step-body p {
+    font-size: 14px;
+    color: var(--sub);
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .step-body p:last-child { margin-bottom: 0; }
+
+  /* Warning box inside a step */
+  .warn-box {
+    background: var(--warn);
+    border: 1px solid var(--warn-bdr);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #7a5000;
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .warn-box strong { color: #5a3800; }
+
+  /* Path display */
+  .path {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--step-bg);
+    color: #1a3a6b;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 10px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Brand paths accordion */
+  .brand-paths { margin-top: 12px; }
+  .brand-row {
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .brand-row:last-child { border-bottom: none; }
+  .brand-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 12px 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand-toggle:hover { color: var(--blue); }
+  .brand-toggle .arrow { font-size: 11px; color: var(--faint); transition: transform 0.15s; }
+  .brand-toggle.open .arrow { transform: rotate(90deg); }
+  .brand-detail {
+    display: none;
+    padding: 0 4px 14px;
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.7;
+  }
+  .brand-detail.open { display: block; }
+
+  /* ── VERIFY SECTION ─────────────────────────────────── */
+  .verify-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .verify-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .verify-card .icon { font-size: 24px; margin-bottom: 8px; }
+  .verify-card h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .verify-card p { font-size: 13px; color: var(--sub); line-height: 1.5; }
+  .verify-card.pass { border-color: #b7e4c7; background: #f0faf5; }
+  .verify-card.block { border-color: #f5c6cb; background: #fff5f5; }
+
+  /* ── TROUBLESHOOT ───────────────────────────────────── */
+  .faq { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    width: 100%;
+    background: var(--white);
+    border: none;
+    text-align: left;
+    padding: 18px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .faq-q:hover { background: var(--step-bg); }
+  .faq-q .arr { color: var(--faint); font-size: 11px; flex-shrink: 0; transition: transform 0.15s; }
+  .faq-q.open .arr { transform: rotate(90deg); }
+  .faq-a {
+    display: none;
+    padding: 0 20px 18px;
+    font-size: 14px;
+    color: var(--sub);
+    line-height: 1.65;
+    background: var(--white);
+  }
+  .faq-a.open { display: block; }
+
+  /* ── iOS SECTION ────────────────────────────────────── */
+  .ios-options { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 600px) { .ios-options { grid-template-columns: 1fr; } }
+  .ios-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+  .ios-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .ios-card p { font-size: 14px; color: var(--sub); line-height: 1.6; margin-bottom: 16px; }
+  .ios-card .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .badge-rec { background: #e8f0fe; color: var(--blue); }
+  .badge-alt { background: #f3f4f6; color: var(--faint); }
+  .ios-steps { font-size: 13px; color: var(--sub); line-height: 1.8; }
+  .ios-steps li { margin-left: 16px; margin-bottom: 4px; }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--faint);
+  }
+  footer a { color: var(--faint); }
+  footer a:hover { color: var(--blue); }
+
+  /* ── DOWNLOAD BTN ───────────────────────────────────── */
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 16px;
+    transition: background 0.15s;
+  }
+  .dl-btn:hover { background: var(--blue-dk); text-decoration: none; color: #fff; }
+
+  /* ── DIVIDER ────────────────────────────────────────── */
+  .divider { border: none; border-top: 1px solid var(--border); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 48px 20px 40px; }
+    .step { grid-template-columns: 32px 1fr; gap: 0 14px; padding: 18px; }
+    .section { padding: 48px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Short<span>Block</span></div>
+  <a href="#troubleshoot" style="font-size:14px;color:var(--sub)">Troubleshoot</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Free parental control</div>
+  <h1>Block <em>TikTok</em> &amp; YouTube Shorts. One switch.</h1>
+  <p>PIN-protected. Works across all apps and browsers. Takes 5 minutes to set up.</p>
+  <div class="platform-picker">
+    <a href="#android" class="platform-btn android" onclick="switchTab('android')">
+      &#x1F4F1; Android
+    </a>
+    <a href="#ios" class="platform-btn ios" onclick="switchTab('ios')">
+       iOS (iPhone &amp; iPad)
+    </a>
+  </div>
+  <p class="platform-note">Android 8+ &nbsp;·&nbsp; iPhone iOS 14+ &nbsp;·&nbsp; Free, no account needed</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="section">
+
+  <!-- PLATFORM TABS -->
+  <div class="tab-bar">
+    <div class="tab active" id="tab-android" onclick="switchTab('android')">&#x1F4F1; Android</div>
+    <div class="tab" id="tab-ios" onclick="switchTab('ios')"> iOS</div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- ANDROID TAB -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="tab-panel active" id="panel-android">
+
+    <div class="section-label">Android Setup</div>
+    <h2>Download and install ShortBlock</h2>
+    <p>Works on Samsung, Xiaomi, Huawei, OnePlus, Pixel, Motorola and all other Android phones. The app detects your device and walks you through only the steps you need.</p>
+
+    <a href="https://tangle-me.github.io/shortblock-site/app-debug.apk" class="dl-btn" download>
+      ⬇ Download ShortBlock APK
+    </a>
+    <p style="font-size:13px;color:var(--faint);margin-top:10px;margin-bottom:40px;">
+      Version 1.0 &nbsp;·&nbsp; ~6 MB &nbsp;·&nbsp; Android 8.0+
+    </p>
+
+    <div class="steps">
+
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Install the APK file</h3>
+          <p>Tap the downloaded file in your notifications or open it from your Downloads folder. Android will ask permission to install apps from this source — this is a standard Android security prompt for any app not from the Play Store.</p>
+          <p><strong>What you'll see:</strong> "Install blocked" or "For your security, your phone is not allowed to install unknown apps from this source."</p>
+          <p>Tap <strong>Settings</strong> in the prompt → toggle <strong>Allow from this source</strong> → go back → tap <strong>Install</strong>.</p>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Dismiss the Play Protect warning</h3>
+          <p>Google will show a warning saying it doesn't recognise the app. This appears for <em>all</em> apps not distributed through the Play Store — it is not a sign the app is unsafe.</p>
+          <p>Tap <strong>Install anyway</strong> (you may need to tap "More details" first to see this option).</p>
+        </div>
+      </div>
+
+      <!-- STEP 3 — Android 13/14 only -->
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Unlock app permissions <span style="font-size:12px;font-weight:500;color:var(--faint)">(Android 13 &amp; 14 only)</span></h3>
+          <p>Android 13 and 14 restrict certain permissions for downloaded apps until you explicitly unlock them. If your phone runs Android 12 or older, skip to Step 4.</p>
+          <p><strong>To check your version:</strong> Settings → About phone → Android version.</p>
+          <p>If you're on Android 13 or 14:</p>
+          <div class="path">Settings → Apps
+→ Find "System Block" → tap it
+→ Tap ⋮ (three dots, top right)
+→ Tap "Allow restricted settings"
+→ Confirm</div>
+          <div class="warn-box">
+            <strong>⚠ If you skip this:</strong> The accessibility service toggle will appear greyed out in Step 6 and blocking will not work.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Open the app and set your PIN</h3>
+          <p>Find <strong>System Block</strong> in your app drawer and open it.</p>
+          <p>Enter a PIN of at least 4 digits — this is what you'll use to toggle blocking on and off. Confirm it, then choose a security question and answer in case you forget your PIN.</p>
+          <p>Tap <strong>Activate</strong>. The app will now walk you through the remaining steps automatically, detecting your phone model and showing you exactly the right instructions.</p>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>Grant Device Administrator</h3>
+          <p>A system dialog will appear asking you to activate "Device Administrator". Tap <strong>Activate</strong>.</p>
+          <p>This prevents your child from uninstalling the app. Without it, any child who knows how to navigate phone settings could remove it.</p>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h3>Grant VPN permission</h3>
+          <p>A system dialog will appear: "System Block wants to set up a VPN connection." Tap <strong>OK</strong>.</p>
+          <p>This enables the network filter that blocks TikTok. It does not route your traffic through any external server — the filter runs entirely on the device.</p>
+        </div>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <h3>Enable the Accessibility Service</h3>
+          <p>This is the main blocking engine. The app will prompt you to open Settings and guide you to the right place for your phone brand.</p>
+          <p>If you need to find it manually, select your phone brand below:</p>
+
+          <div class="brand-paths">
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Samsung <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility → Installed services
+→ System Block → toggle ON → Allow</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Google Pixel <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility
+→ System Block → Use System Block → Allow</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Xiaomi / Redmi / POCO <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility → System Block → ON
+(scroll past "Downloaded apps" if needed)</div>
+                <div class="warn-box" style="margin-top:10px">Also complete Step 8 (battery) and Step 9 (autostart) — required for Xiaomi devices.</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Huawei / Honor <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility features
+→ Accessibility → System Block → ON</div>
+                <div class="warn-box" style="margin-top:10px">Also complete Step 8 (battery) — required for Huawei devices.</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">OnePlus <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility → Accessibility features
+→ Installed services → System Block → ON</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">OPPO / Realme <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Additional settings
+→ Accessibility → System Block → ON</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Vivo <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility features
+→ Accessibility → System Block → ON</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Motorola / Nokia / Sony / Other <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Accessibility
+→ Downloaded apps → System Block → ON</div>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin-top:14px">Once ON, press back, return to the System Block app, and tap <strong>Finish</strong>.</p>
+        </div>
+      </div>
+
+      <!-- STEP 8 — Battery (Xiaomi/Huawei/OnePlus) -->
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <h3>Disable battery optimisation <span style="font-size:12px;font-weight:500;color:var(--faint)">(Xiaomi, Huawei, OnePlus, OPPO, Vivo only)</span></h3>
+          <p>Some brands aggressively stop background apps to save battery. This will shut down the blocking service after a few minutes. You need to exempt System Block.</p>
+
+          <div class="brand-paths">
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Xiaomi / Redmi / POCO <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Apps → Manage apps → System Block
+→ Battery saver → select "No restrictions"</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Huawei / Honor <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Battery → App launch
+→ System Block → turn OFF "Manage automatically"
+→ Enable: Auto-launch, Secondary launch, Run in background</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">OnePlus / OPPO / Realme <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Battery → Battery optimisation
+→ System Block → Don't optimise</div>
+              </div>
+            </div>
+            <div class="brand-row">
+              <button class="brand-toggle" onclick="toggleBrand(this)">Vivo <span class="arrow">▶</span></button>
+              <div class="brand-detail">
+                <div class="path">Settings → Battery
+→ High background power consumption → add System Block</div>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin-top:12px;font-size:13px;color:var(--faint)">Samsung, Pixel, Motorola, Sony, Nokia users can skip this step.</p>
+        </div>
+      </div>
+
+      <!-- STEP 9 — Autostart (Xiaomi only) -->
+      <div class="step">
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <h3>Enable autostart <span style="font-size:12px;font-weight:500;color:var(--faint)">(Xiaomi / Redmi / POCO only)</span></h3>
+          <p>MIUI and HyperOS prevent apps from restarting after a reboot unless you allow it explicitly. Without this, blocking stops working every time the phone is restarted.</p>
+          <div class="path">Settings → Apps → Manage apps → System Block
+→ Autostart → toggle ON</div>
+          <p style="margin-top:12px;font-size:13px;color:var(--faint)">All other brands can skip this step.</p>
+        </div>
+      </div>
+
+    </div><!-- /steps -->
+
+    <!-- VERIFY -->
+    <div style="margin-top:56px">
+      <div class="section-label">Verification</div>
+      <h2>Check that it's working</h2>
+      <p style="color:var(--sub);font-size:16px;margin-bottom:0">Once setup is complete, test each of these on the child's phone.</p>
+
+      <div class="verify-grid">
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>TikTok app</h4>
+          <p>Open TikTok — should close immediately and return to home screen.</p>
+        </div>
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>YouTube Shorts tab</h4>
+          <p>Open YouTube → tap Shorts tab → should jump back to Home feed.</p>
+        </div>
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>TikTok in browser</h4>
+          <p>Open Chrome → go to tiktok.com → page should fail to load.</p>
+        </div>
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>YouTube Shorts in browser</h4>
+          <p>Open Chrome → go to youtube.com/shorts → should redirect to YouTube home.</p>
+        </div>
+        <div class="verify-card pass">
+          <div class="icon">✅</div>
+          <h4>Regular YouTube</h4>
+          <p>Open YouTube → watch a normal video → should work without interruption.</p>
+        </div>
+        <div class="verify-card pass">
+          <div class="icon">✅</div>
+          <h4>PIN toggle</h4>
+          <p>Open System Block → enter PIN → toggle OFF → TikTok works → toggle ON → blocked again.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /android panel -->
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- iOS TAB -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="panel-ios">
+
+    <div class="section-label">iOS Setup</div>
+    <h2>Block TikTok and Shorts on iPhone and iPad</h2>
+    <p>iPhones cannot install APK files. Use one of the two methods below — they work on all iPhones and iPads running iOS 14 or later, with no app installation required.</p>
+
+    <div class="ios-options">
+
+      <!-- Option 1: DNS Profile -->
+      <div class="ios-card">
+        <div class="badge badge-rec">Recommended</div>
+        <h3>DNS Profile</h3>
+        <p>A configuration file that blocks TikTok and YouTube Shorts at the network level — works in Safari, Chrome, and all other browsers. Installs in under 2 minutes.</p>
+        <a href="https://tangle-me.github.io/shortblock-site/shortblock.mobileconfig" class="dl-btn" style="font-size:14px;padding:11px 22px;margin-top:0">
+          ⬇ Download Profile
+        </a>
+        <div style="margin-top:20px">
+          <div class="section-label" style="margin-bottom:8px">Install steps</div>
+          <ol class="ios-steps">
+            <li>Tap "Download Profile" above on the iPhone</li>
+            <li>A prompt says "Profile Downloaded" — tap <strong>Close</strong></li>
+            <li>Go to <strong>Settings → General → VPN &amp; Device Management</strong></li>
+            <li>Tap <strong>ShortBlock</strong> under "Downloaded Profile"</li>
+            <li>Tap <strong>Install</strong> → enter your iPhone passcode → tap <strong>Install</strong> again</li>
+            <li>Tap <strong>Done</strong></li>
+          </ol>
+          <div class="warn-box" style="margin-top:14px">
+            <strong>To remove blocking:</strong> Settings → General → VPN &amp; Device Management → ShortBlock → Remove Profile. Protect this with Screen Time passcode (see Option 2).
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2: Screen Time -->
+      <div class="ios-card">
+        <div class="badge badge-alt">Built-in · No download</div>
+        <h3>Apple Screen Time</h3>
+        <p>Apple's built-in parental controls. Block TikTok entirely and restrict YouTube Shorts. Works completely offline, PIN-protected, and cannot be bypassed without your Screen Time passcode.</p>
+        <div style="margin-top:8px">
+          <div class="section-label" style="margin-bottom:8px">Block TikTok</div>
+          <ol class="ios-steps">
+            <li>Settings → Screen Time → turn ON</li>
+            <li>Set a Screen Time Passcode (different from your phone passcode)</li>
+            <li>Tap <strong>App Limits</strong> → Add Limit</li>
+            <li>Select <strong>Social Networking</strong> → tap TikTok specifically</li>
+            <li>Set time to <strong>1 minute per day</strong> (effectively blocked)</li>
+            <li>Toggle <strong>Block at End of Limit</strong> → ON</li>
+          </ol>
+          <div class="section-label" style="margin-top:16px;margin-bottom:8px">Block YouTube Shorts</div>
+          <ol class="ios-steps">
+            <li>Screen Time → Content &amp; Privacy Restrictions → ON</li>
+            <li>Content Restrictions → Web Content → Limit Adult Websites</li>
+            <li>Under "Never Allow" → tap Add Website</li>
+            <li>Type: <strong>youtube.com/shorts</strong></li>
+          </ol>
+        </div>
+      </div>
+
+    </div><!-- /ios-options -->
+
+    <!-- iOS Verify -->
+    <div style="margin-top:48px">
+      <div class="section-label">Verification</div>
+      <h2>Check that it's working</h2>
+      <div class="verify-grid">
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>TikTok app</h4>
+          <p>Open TikTok → should show "Screen Time Limit Reached" or fail to open.</p>
+        </div>
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>TikTok in browser</h4>
+          <p>Open Safari → go to tiktok.com → should show "Website blocked".</p>
+        </div>
+        <div class="verify-card block">
+          <div class="icon">🚫</div>
+          <h4>YouTube Shorts in browser</h4>
+          <p>Open Safari → go to youtube.com/shorts → should be blocked.</p>
+        </div>
+        <div class="verify-card pass">
+          <div class="icon">✅</div>
+          <h4>Regular YouTube</h4>
+          <p>youtube.com (without /shorts) should work normally.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ios panel -->
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- TROUBLESHOOT -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <hr class="divider" style="margin-top:64px">
+  <div id="troubleshoot" style="margin-top:56px">
+    <div class="section-label">Troubleshoot</div>
+    <h2>Something not working?</h2>
+    <p style="color:var(--sub);font-size:16px;margin-bottom:28px">Common issues and fixes.</p>
+
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">The Accessibility Service toggle is greyed out and won't move <span class="arr">▶</span></button>
+        <div class="faq-a">You need to complete Step 3 — Allow restricted settings. This only applies to Android 13 and 14. Go to Settings → Apps → System Block → ⋮ menu → Allow restricted settings. Then go back to the Accessibility settings and try again.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">TikTok is not being blocked <span class="arr">▶</span></button>
+        <div class="faq-a">The Accessibility Service may have been turned off. Go to Settings → Accessibility → System Block and check the toggle is still ON. If your phone is a Xiaomi, Huawei, or OnePlus, also check that battery optimisation is disabled for System Block (Step 8) and autostart is enabled (Step 9 for Xiaomi).</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Blocking stops working after the phone restarts <span class="arr">▶</span></button>
+        <div class="faq-a">This is a battery optimisation issue, most common on Xiaomi, Huawei, and OnePlus devices. Complete Step 8 and (for Xiaomi) Step 9. If you've already done this and it still happens, go to Settings → Apps → System Block → Battery → select "No restrictions" or "Unrestricted".</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">I forgot my PIN <span class="arr">▶</span></button>
+        <div class="faq-a">Open the System Block app → tap "Forgot PIN" on the login screen → answer your security question → set a new PIN. If you also forgot your security answer, use the emergency reset code. Contact support at admin@tangle-me.com to receive the emergency code after identity verification.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Play Protect keeps warning about the app <span class="arr">▶</span></button>
+        <div class="faq-a">This is a standard Google warning that appears for all apps not distributed through the Play Store. It does not mean the app is harmful. Tap "Install anyway" to proceed. You can also open Google Play → tap your profile icon → Play Protect → and see the scan result, which will show the app as safe.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">The child is using a VPN to bypass blocking <span class="arr">▶</span></button>
+        <div class="faq-a">Once System Block's VPN is active, Android prevents other VPN apps from running alongside it. If your child has installed a separate VPN app, they would need to disable System Block's VPN first — which requires uninstalling the app, which requires Device Admin removal, which requires your PIN.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I completely remove System Block? <span class="arr">▶</span></button>
+        <div class="faq-a">Open System Block → enter your PIN → tap "Remove Protection" → confirm. This deactivates Device Administrator, which allows the app to be uninstalled normally via Settings → Apps → System Block → Uninstall.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">YouTube regular videos stopped working <span class="arr">▶</span></button>
+        <div class="faq-a">System Block only blocks the Shorts section of YouTube. Regular videos should always work. If you're experiencing issues with regular YouTube, try toggling protection OFF and back ON via the System Block app. If the problem persists, contact support.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /section -->
+
+<!-- FOOTER -->
+<footer>
+  <p>ShortBlock &nbsp;·&nbsp; <a href="/privacy.html">Privacy policy</a> &nbsp;·&nbsp; <a href="mailto:admin@tangle-me.com">Contact</a></p>
+  <p style="margin-top:8px">No account required. No data collected. PIN stays on device.</p>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // Platform detection — auto-select tab on load
+  (function() {
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    if (isIOS) switchTab('ios');
+  })();
+
+  // Brand path accordions
+  function toggleBrand(btn) {
+    const detail = btn.nextElementSibling;
+    const isOpen = detail.classList.contains('open');
+    // Close all in same container
+    btn.closest('.brand-paths').querySelectorAll('.brand-detail').forEach(d => d.classList.remove('open'));
+    btn.closest('.brand-paths').querySelectorAll('.brand-toggle').forEach(b => b.classList.remove('open'));
+    if (!isOpen) {
+      detail.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  // Smooth scroll to troubleshoot from anchor
+  document.querySelectorAll('a[href="#troubleshoot"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('troubleshoot').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
